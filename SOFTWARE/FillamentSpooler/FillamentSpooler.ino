@@ -7,48 +7,41 @@
 //  .                          X_ENABLE_PIN     protected
 //  .                          Y_ENABLE_PIN     protected
 
-const int MOTOR_STEP_PIN = 2; // 15 22 3
-const int MOTOR_DIRECTION_PIN = 5; // 21 23 2
-const int SWEEP_STEP_PIN = 3; // 15 22 3
-const int SWEEP_DIRECTION_PIN = 6; // 21 23 2
+const int MOTOR_X_STEP_PIN = 2; // 15 22 3
+const int MOTOR_X_DIRECTION_PIN = 5; // 21 23 2
+//const int MOTOR_Y_STEP_PIN = 3; // 15 22 3
+//const int MOTOR_Y_DIRECTION_PIN = 6; // 21 23 2
 
 
 const int MOTOR_ENABLE = 8;
 
-SpeedyStepper stepper;
-SpeedyStepper stepper1;
+SpeedyStepper stepperX;
+//SpeedyStepper stepperY;
 
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  stepper.connectToPins(MOTOR_STEP_PIN, MOTOR_DIRECTION_PIN);
-  stepper1.connectToPins(SWEEP_STEP_PIN, SWEEP_DIRECTION_PIN);
+  stepperX.connectToPins(MOTOR_X_STEP_PIN, MOTOR_X_DIRECTION_PIN);
+  //stepperY.connectToPins(MOTOR_Y_STEP_PIN, MOTOR_Y_DIRECTION_PIN);
   pinMode(MOTOR_ENABLE, OUTPUT);
   digitalWrite(MOTOR_ENABLE, LOW);
-  stepper.setSpeedInStepsPerSecond(500);
-  stepper.setAccelerationInStepsPerSecondPerSecond(4000);
-  stepper1.setSpeedInStepsPerSecond(500);
-  stepper1.setAccelerationInStepsPerSecondPerSecond(4000);}
-
-
-void loop() {
-  stepper.moveRelativeInSteps(50);
-  stepper1.moveRelativeInSteps(5);
-  stepper.moveRelativeInSteps(50);
-  stepper1.moveRelativeInSteps(5);
-  stepper.moveRelativeInSteps(50);
-  stepper1.moveRelativeInSteps(5);
-  stepper.moveRelativeInSteps(50);
-  stepper1.moveRelativeInSteps(5);
-  stepper.moveRelativeInSteps(50);
-  stepper1.moveRelativeInSteps(-5);
-  stepper.moveRelativeInSteps(50);
-  stepper1.moveRelativeInSteps(-5);
-  stepper.moveRelativeInSteps(50);
-  stepper1.moveRelativeInSteps(-5);
-  stepper.moveRelativeInSteps(50);
-  stepper1.moveRelativeInSteps(-5);
   
+}
+void loop() {
+  stepperX.setSpeedInStepsPerSecond(2000);
+  stepperX.setAccelerationInStepsPerSecondPerSecond(500);
+  
+  //stepperY.setSpeedInStepsPerSecond(1200);
+  //stepperY.setAccelerationInStepsPerSecondPerSecond(4000);
+  
+  for ( int steps = 0 ; steps <= 5; steps++ ){  
+  stepperX.moveRelativeInSteps(1000);
+  //stepperY.moveRelativeInSteps(50);
+  }
+  for ( int steps = 0 ; steps <= 5; steps++ ){  
+  stepperX.moveRelativeInSteps(10000);
+  //stepperY.moveRelativeInSteps(-50);
+  }
   
   //delay(1000);
 }
